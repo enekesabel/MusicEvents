@@ -18,7 +18,7 @@ android:
 before_install:
  - yes | sdkmanager "platforms;android-26"
 
- deploy:
+deploy:
   provider: releases
   apikey: $GITHUB_KEY
   file: app/build/outputs/apk/app-release.apk
@@ -29,7 +29,7 @@ before_install:
 env:
  global:
  - MALLOC_ARENA_MAX=2
- 
+
 sudo: required
 script: ./gradlew :app:build
 before_script:
