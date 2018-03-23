@@ -31,4 +31,51 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+
+    // Dagger 2 and Compiler
+    compile "com.google.dagger:dagger-compiler:2.6"
+    compile 'com.google.dagger:dagger:2.6'
+    annotationProcessor "com.google.dagger:dagger-compiler:2.6"
+    // Required for @Generated annotation (missing in Java <= 1.6; therefore, Android)
+    provided 'javax.annotation:jsr250-api:1.0'
+
+    //JVM Test
+    //JUnit
+    testCompile 'junit:junit:4.12'
+
+    //Robolectric
+    testCompile('org.robolectric:shadows-support-v4:3.0-rc3') {
+        exclude group: 'commons-logging', module: 'commons-logging'
+        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+    }
+
+    //Mockito
+    testCompile "org.mockito:mockito-core:1.10.19"
+
+    //Dagger
+    //testCompile 'com.google.dagger:dagger-compiler:2.6'
+    //testCompile 'com.google.dagger:dagger:2.6'
+    //testApt "com.google.dagger:dagger-compiler:2.6"
+    //testCompile 'javax.annotation:jsr250-api:1.0'
+
+    //Android Test
+    //Espresso
+    androidTestCompile 'com.android.support.test:runner:0.4'
+    androidTestCompile 'com.android.support.test:rules:0.4'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.1')
+            {
+                exclude group: 'com.google.code.findbugs', module: 'jsr305'
+            }
+    androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.2.2'){
+        exclude group: 'com.android.support', module: 'appcompat'
+        exclude group: 'com.android.support', module: 'support-v4'
+        exclude module: 'recyclerview-v7'
+    }
+    androidTestCompile 'com.android.support:support-annotations:23.1.1'
+    androidTestCompile 'com.android.support.test:runner:0.4.1'
+    androidTestCompile 'com.android.support.test:rules:0.4.1'
+
+    // Mockito
+    androidTestCompile "org.mockito:mockito-core:1.10.19"
 }
