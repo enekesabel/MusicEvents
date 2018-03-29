@@ -9,7 +9,6 @@ class MusicEventsApplication : Application() {
         var injector: MusicEventsApplicationComponent? = null
     }
 
-
     override fun onCreate() {
         super.onCreate()
 
