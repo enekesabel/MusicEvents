@@ -6,7 +6,7 @@ import enekes.abel.musicevents.ui.UIModule
 class MusicEventsApplication : Application() {
     companion object {
         @JvmStatic
-        var injector: MusicEventsApplicationComponent? = null
+        lateinit var injector: MusicEventsApplicationComponent
     }
 
     override fun onCreate() {

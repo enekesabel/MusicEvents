@@ -13,6 +13,7 @@ import enekes.abel.musicevents.R
 
 import enekes.abel.musicevents.ui.artists.dummy.DummyContent
 import enekes.abel.musicevents.ui.artists.dummy.DummyContent.DummyItem
+import javax.inject.Inject
 
 /**
  * A fragment representing a list of Items.
@@ -20,6 +21,10 @@ import enekes.abel.musicevents.ui.artists.dummy.DummyContent.DummyItem
  * [ArtistFragment.OnListFragmentInteractionListener] interface.
  */
 class ArtistFragment : Fragment(), ArtistsScreen {
+
+    @Inject
+    lateinit var artistsPresenter: ArtistsPresenter
+
     // TODO: Customize parameters
     private var columnCount = 1
 
@@ -57,9 +62,12 @@ class ArtistFragment : Fragment(), ArtistsScreen {
         } else {
             throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
         }
+
+        artistsPresenter.attachScreen(this)
     }
 
     override fun onDetach() {
+        artistsPresenter.detachScreen()
         super.onDetach()
         listener = null
     }

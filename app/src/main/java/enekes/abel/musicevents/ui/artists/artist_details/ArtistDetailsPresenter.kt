@@ -8,7 +8,7 @@ class ArtistDetailsPresenter : Presenter<ArtistsScreen>() {
 
     override fun attachScreen(screen: ArtistsScreen) {
         super.attachScreen(screen)
-        MusicEventsApplication.injector?.inject(this)
+        MusicEventsApplication.injector.inject(this)
     }
 
     override fun detachScreen() {
