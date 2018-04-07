@@ -6,6 +6,6 @@ import enekes.abel.musicevents.MusicEventsApplication
 public class EventsInteractor {
 
     fun EventsInteractor() {
-        MusicEventsApplication.injector?.inject(this)
+        MusicEventsApplication.injector.inject(this)
     }
 }
