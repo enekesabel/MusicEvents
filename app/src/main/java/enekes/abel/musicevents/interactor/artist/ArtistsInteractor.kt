@@ -21,7 +21,7 @@ public class ArtistsInteractor {
     lateinit var artistEventsApi: ArtistEventsApi
 
     init {
-        MusicEventsApplication.injector?.inject(this)
+        MusicEventsApplication.injector.inject(this)
     }
 
     fun getArtist(artistName: String): Observable<ArtistData> {

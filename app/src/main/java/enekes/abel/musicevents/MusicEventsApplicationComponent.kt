@@ -3,7 +3,6 @@ package enekes.abel.musicevents
 import dagger.Component
 import enekes.abel.musicevents.interactor.InteractorModule
 import enekes.abel.musicevents.interactor.artist.ArtistsInteractor
-import enekes.abel.musicevents.interactor.event.EventsInteractor
 import enekes.abel.musicevents.network.NetworkModule
 import enekes.abel.musicevents.ui.UIModule
 import enekes.abel.musicevents.ui.artists.ArtistFragment
@@ -22,7 +21,6 @@ interface MusicEventsApplicationComponent {
     fun inject(artistsPresenter: ArtistsPresenter)
     fun inject(eventPresenter: EventPresenter)
     fun inject(artistsInteractor: ArtistsInteractor)
-    fun inject(eventsInteractor: EventsInteractor)
     fun inject(artistFragment: ArtistFragment)
     fun inject(eventFragment: EventFragment)
 }
