@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import enekes.abel.musicevents.network.api.ArtistEventsApi;
 import enekes.abel.musicevents.network.api.ArtistInformationApi;
+import enekes.abel.musicevents.network.api.ArtistSearchApi;
 
 @Module
 public class NetworkModule {
@@ -19,8 +20,14 @@ public class NetworkModule {
 
     @Provides
     @Singleton
-    public ArtistInformationApi provideArtionstInformationApi() {
+    public ArtistInformationApi provideArtistInformationApi() {
         return new ApiClient().createService(ArtistInformationApi.class);
+    }
+
+    @Provides
+    @Singleton
+    public ArtistSearchApi provideArtistSearchApi(){
+        return new ArtistSearchApiImpl();
     }
 
 }
