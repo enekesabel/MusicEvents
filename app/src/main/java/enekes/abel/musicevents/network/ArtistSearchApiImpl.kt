@@ -13,7 +13,7 @@ class ArtistSearchApiImpl : ArtistSearchApi {
         val json = JSON()
         val retrofit = Retrofit.Builder()
                 .baseUrl("http://ws.audioscrobbler.com/")
-                .addConverterFactory(GsonCustomConverterFactory.create(json.getGson()))
+                .addConverterFactory(GsonCustomConverterFactory.create(json.gson))
                 .build()
 
         artistSearchApi = retrofit.create(ArtistSearchApi::class.java)

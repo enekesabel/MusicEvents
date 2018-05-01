@@ -8,7 +8,6 @@ import org.apache.oltu.oauth2.client.request.OAuthClientRequest.TokenRequestBuil
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.LinkedHashMap;
@@ -19,11 +18,9 @@ import enekes.abel.musicevents.network.auth.HttpBasicAuth;
 import enekes.abel.musicevents.network.auth.OAuth;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class ApiClient {
@@ -334,32 +331,3 @@ class GsonResponseBodyConverterToString<T> implements Converter<ResponseBody, T>
   }
 }
 
-class GsonCustomConverterFactory extends Converter.Factory
-{
-  private final Gson gson;
-  private final GsonConverterFactory gsonConverterFactory;
-
-  public static GsonCustomConverterFactory create(Gson gson) {
-    return new GsonCustomConverterFactory(gson);
-  }
-
-  private GsonCustomConverterFactory(Gson gson) {
-    if (gson == null)
-      throw new NullPointerException("gson == null");
-    this.gson = gson;
-    this.gsonConverterFactory = GsonConverterFactory.create(gson);
-  }
-
-  @Override
-  public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
-    if (type.equals(String.class))
-      return new GsonResponseBodyConverterToString<Object>(gson, type);
-    else
-      return gsonConverterFactory.responseBodyConverter(type, annotations, retrofit);
-  }
-
-  @Override
-  public Converter<?, RequestBody> requestBodyConverter(Type type, Annotation[] parameterAnnotations, Annotation[] methodAnnotations, Retrofit retrofit) {
-    return gsonConverterFactory.requestBodyConverter(type, parameterAnnotations, methodAnnotations, retrofit);
-  }
-}
