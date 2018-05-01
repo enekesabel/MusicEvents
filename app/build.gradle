@@ -62,6 +62,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+    // Kotlin databinding
+    kapt 'com.android.databinding:compiler:3.1.1'
+
+    // SearchView
+    implementation 'com.miguelcatalan:materialsearchview:1.4.0'
+
     //Sugar orm
     implementation 'com.github.satyan:sugar:1.3'
 
