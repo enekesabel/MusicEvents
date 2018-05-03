@@ -21,13 +21,15 @@ class MainPresenter : Presenter<MainScreen>() {
     }
 
     fun searchArtist(name: String) {
-        artistInteractor.searchArtist(name)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe({
-                    result -> screen!!.showArtistResults(result)
-                }, {
-                    error -> error.printStackTrace()
-                })
+        if (name.isNotEmpty()) {
+            artistInteractor.searchArtist(name)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe({ result ->
+                        screen!!.showArtistResults(result)
+                    }, { error ->
+                        error.printStackTrace()
+                    })
+        }
     }
 }
