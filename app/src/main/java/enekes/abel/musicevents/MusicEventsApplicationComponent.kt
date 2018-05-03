@@ -11,16 +11,17 @@ import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsPresenter
 import enekes.abel.musicevents.ui.events.EventFragment
 import enekes.abel.musicevents.ui.events.EventPresenter
 import enekes.abel.musicevents.ui.main.MainActivity
+import enekes.abel.musicevents.ui.main.MainPresenter
 import javax.inject.Singleton
 
 @Singleton
 @Component(modules = arrayOf(UIModule::class, InteractorModule::class, NetworkModule::class))
 interface MusicEventsApplicationComponent {
     fun inject(mainActivity: MainActivity)
-    fun inject(artistDetailsPresenter: ArtistDetailsPresenter)
+    fun inject(mainPresenter: MainPresenter)
     fun inject(artistsPresenter: ArtistsPresenter)
     fun inject(eventPresenter: EventPresenter)
+    fun inject(artistDetailsPresenter: ArtistDetailsPresenter)
     fun inject(artistsInteractor: ArtistsInteractor)
     fun inject(artistFragment: ArtistFragment)
-    fun inject(eventFragment: EventFragment)
 }
