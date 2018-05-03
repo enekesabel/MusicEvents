@@ -14,8 +14,8 @@ import java.util.*
 import javax.inject.Inject
 
 
-public class ArtistsInteractor {
-    companion object {
+class ArtistsInteractor {
+    private companion object {
         @JvmStatic
         val method: String = "artist.search"
         @JvmStatic
@@ -42,7 +42,7 @@ public class ArtistsInteractor {
             val response = this.artistSearchApi.searchArtist(method, artistName, apiKey, format).execute()
 
             if (response.isSuccessful) {
-                val artistList = response.body()!!.results.artistmatches
+                val artistList = response.body()!!.results.artistmatches.artist
                 subscriber.onNext(artistList)
                 subscriber.onComplete()
             } else {
