@@ -1,9 +1,12 @@
 package enekes.abel.musicevents.ui.main
 
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
+import android.widget.AdapterView
+import android.widget.ListAdapter
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.R
 import enekes.abel.musicevents.databinding.ActivityMainBinding
@@ -12,6 +15,7 @@ import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_main.*
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import enekes.abel.musicevents.network.model.artist_search.ArtistSearchEntry
+import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsActivity
 
 
 class MainActivity : AppCompatActivity(), MainScreen {
@@ -21,11 +25,16 @@ class MainActivity : AppCompatActivity(), MainScreen {
 
     private lateinit var searchView: MaterialSearchView
 
+    private companion object {
+        val ARTIST_KEY = "ARTIST_KEY"
+        var firstSuggestion = ""
+    }
+
     private fun initializeSearchView() {
         searchView = search_view as MaterialSearchView
         searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                //Do some magic
+                showArtist(firstSuggestion)
                 return false
             }
 
@@ -34,20 +43,14 @@ class MainActivity : AppCompatActivity(), MainScreen {
                 return false
             }
         })
-
-        searchView.setOnSearchViewListener(object : MaterialSearchView.SearchViewListener {
-            override fun onSearchViewShown() {
-                //Do some magic
-            }
-
-            override fun onSearchViewClosed() {
-                //Do some magic
-            }
-        })
     }
 
     private fun setSearchViewSuggestions(suggestions: Array<String>) {
+        firstSuggestion = suggestions[0]
         searchView.setSuggestions(suggestions)
+        searchView.setOnItemClickListener({ parent, view, position, id ->
+            showArtist(suggestions[position])
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,9 +86,14 @@ class MainActivity : AppCompatActivity(), MainScreen {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun showArtist(artistName: String) {
+        val intent = Intent(this, ArtistDetailsActivity::class.java)
+        intent.putExtra(ARTIST_KEY, artistName)
+        startActivity(intent)
+    }
 
     override fun showArtistResults(artists: List<ArtistSearchEntry>) {
-        val artistNames: Array<String> = artists.map { artist ->artist.name }.toTypedArray()
+        val artistNames: Array<String> = artists.map { artist -> artist.name }.toTypedArray()
         setSearchViewSuggestions(artistNames)
     }
 

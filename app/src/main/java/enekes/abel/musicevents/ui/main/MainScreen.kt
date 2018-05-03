@@ -8,5 +8,7 @@ import enekes.abel.musicevents.network.model.artist_search.ArtistSearchEntry
 interface MainScreen {
     fun showEvents(artistName: String)
 
+    fun showArtist(artistName: String)
+
     fun showArtistResults(artists: List<ArtistSearchEntry>)
 }
