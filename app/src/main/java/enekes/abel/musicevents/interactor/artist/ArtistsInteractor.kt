@@ -22,6 +22,8 @@ class ArtistsInteractor {
         val apiKey: String = "3d9e023097347bcbbbf01b689024369c"
         @JvmStatic
         val format = "json"
+        @JvmStatic
+        val limit = 5
     }
 
     @Inject
@@ -39,7 +41,7 @@ class ArtistsInteractor {
 
     fun searchArtist(artistName: String): Observable<List<ArtistSearchEntry>> {
         return Observable.create { subscriber ->
-            val response = this.artistSearchApi.searchArtist(method, artistName, apiKey, format).execute()
+            val response = this.artistSearchApi.searchArtist(method, artistName, limit, apiKey, format).execute()
 
             if (response.isSuccessful) {
                 val artistList = response.body()!!.results.artistmatches.artist

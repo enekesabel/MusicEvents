@@ -21,10 +21,11 @@ class ArtistSearchApiImpl : ArtistSearchApi {
 
 
     override fun searchArtist(method: String,
-                     artist: String,
-                     api_key: String,
-                     format: String)
+                              artist: String,
+                              limit: Int,
+                              api_key: String,
+                              format: String)
             : Call<ArtistSearchResponse> {
-        return artistSearchApi.searchArtist(method, artist, api_key, format)
+        return artistSearchApi.searchArtist(method, artist, limit, api_key, format)
     }
 }
