@@ -4,6 +4,7 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import enekes.abel.musicevents.ui.artists.ArtistsPresenter
+import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsPresenter
 import enekes.abel.musicevents.ui.main.MainPresenter
 import javax.inject.Singleton
 
@@ -25,6 +26,11 @@ class UIModule(private val context: Context) {
     @Singleton
     fun provideArtistPresenter(): ArtistsPresenter {
         return ArtistsPresenter()
+    }
+    @Provides
+    @Singleton
+    fun provideArtistDetailsPresenter(): ArtistDetailsPresenter {
+        return ArtistDetailsPresenter()
     }
 
 }

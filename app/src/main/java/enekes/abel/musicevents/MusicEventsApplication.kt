@@ -1,9 +1,9 @@
 package enekes.abel.musicevents
 
-import android.app.Application
+import com.orm.SugarApp
 import enekes.abel.musicevents.ui.UIModule
 
-class MusicEventsApplication : Application() {
+class MusicEventsApplication : SugarApp() {
     companion object {
         @JvmStatic
         lateinit var injector: MusicEventsApplicationComponent
@@ -15,5 +15,6 @@ class MusicEventsApplication : Application() {
         injector = DaggerMusicEventsApplicationComponent.builder().uIModule(
                 UIModule(this)
         ).build()
+
     }
 }

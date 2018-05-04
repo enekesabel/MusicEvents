@@ -24,8 +24,9 @@ class MainActivity : AppCompatActivity(), MainScreen {
     lateinit var mainPresenter: MainPresenter
 
     private lateinit var searchView: MaterialSearchView
+    private lateinit var binding: ActivityMainBinding
 
-    private companion object {
+    companion object {
         val ARTIST_KEY = "ARTIST_KEY"
         var firstSuggestion = ""
     }
@@ -56,7 +57,8 @@ class MainActivity : AppCompatActivity(), MainScreen {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         MusicEventsApplication.injector.inject(this)
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
         setSupportActionBar(toolbar)
         initializeSearchView()
     }

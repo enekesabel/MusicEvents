@@ -1,18 +1,30 @@
 package enekes.abel.musicevents.ui.artists.artist_details
 
 import enekes.abel.musicevents.MusicEventsApplication
+import enekes.abel.musicevents.interactor.artist.ArtistsInteractor
 import enekes.abel.musicevents.ui.Presenter
-import enekes.abel.musicevents.ui.artists.ArtistsScreen
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class ArtistDetailsPresenter : Presenter<ArtistsScreen>() {
+class ArtistDetailsPresenter : Presenter<ArtistDetailsScreen>() {
 
-    override fun attachScreen(screen: ArtistsScreen) {
+    @Inject
+    lateinit var artistsInteractor: ArtistsInteractor
+
+    override fun attachScreen(screen: ArtistDetailsScreen) {
         super.attachScreen(screen)
         MusicEventsApplication.injector.inject(this)
     }
 
-    override fun detachScreen() {
-        super.detachScreen()
+    fun getArtist(artistName: String) {
+        artistsInteractor.getArtist(artistName) .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({ result ->
+                    screen!!.showArtist(result)
+                }, { error ->
+                    error.printStackTrace()
+                })
     }
 
 }

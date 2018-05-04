@@ -7,6 +7,7 @@ import enekes.abel.musicevents.network.NetworkModule
 import enekes.abel.musicevents.ui.UIModule
 import enekes.abel.musicevents.ui.artists.ArtistFragment
 import enekes.abel.musicevents.ui.artists.ArtistsPresenter
+import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsActivity
 import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsPresenter
 import enekes.abel.musicevents.ui.events.EventFragment
 import enekes.abel.musicevents.ui.events.EventPresenter
@@ -18,6 +19,7 @@ import javax.inject.Singleton
 @Component(modules = arrayOf(UIModule::class, InteractorModule::class, NetworkModule::class))
 interface MusicEventsApplicationComponent {
     fun inject(mainActivity: MainActivity)
+    fun inject(artistDetailsActivity: ArtistDetailsActivity)
     fun inject(mainPresenter: MainPresenter)
     fun inject(artistsPresenter: ArtistsPresenter)
     fun inject(eventPresenter: EventPresenter)

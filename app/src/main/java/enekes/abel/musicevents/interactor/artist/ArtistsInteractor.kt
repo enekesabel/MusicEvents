@@ -1,6 +1,8 @@
 package enekes.abel.musicevents.interactor.artist
 
+import com.orm.SugarRecord
 import enekes.abel.musicevents.MusicEventsApplication
+import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.network.NetworkConfig
 import enekes.abel.musicevents.network.api.ArtistEventsApi
 import enekes.abel.musicevents.network.api.ArtistInformationApi
@@ -53,20 +55,36 @@ class ArtistsInteractor {
         }
     }
 
-    fun getArtist(artistName: String): Observable<ArtistData> {
+    fun getArtist(artistName: String): Observable<Artist> {
         return Observable.create { subscriber ->
 
             val response = this.artistInformationApi.artist(artistName, NetworkConfig.APP_KEY).execute()
 
             if (response.isSuccessful) {
                 val artistData = response.body()
-                subscriber.onNext(artistData!!)
+
+                var artist: Artist? = SugarRecord.findById(Artist::class.java, artistData?.id)
+                val isAlreadyFavourite = artist?.isFavourite ?: false
+                artist = Artist(artistData!!)
+                artist.isFavourite = isAlreadyFavourite
+
+                subscriber.onNext(artist)
                 subscriber.onComplete()
             } else {
                 subscriber.onError(Throwable(response.message()))
             }
 
         }
+    }
+
+    fun markFavourite(artist: Artist){
+        artist.isFavourite = true
+        SugarRecord.save(artist)
+    }
+
+    fun unmarkFavourite(artist: Artist){
+        artist.isFavourite = false
+        SugarRecord.save(artist)
     }
 
     fun getArtistEvents(artistName: String): Observable<List<EventData>> {

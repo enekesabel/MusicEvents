@@ -1,24 +1,26 @@
 package enekes.abel.musicevents.model
 
 import com.orm.SugarRecord
+import com.orm.dsl.Unique
 import enekes.abel.musicevents.network.model.ArtistData
 
-class Artist: SugarRecord<Artist> {
+class Artist(artistData: ArtistData) : SugarRecord() {
 
+    @Unique
     private var artistId: Int? = null
-    private var name: String? = null
-    private var url: String? = null
-    private var imageUrl: String? = null
-    private var facebookPageUrl: String? = null
-    private var isFavourite: Boolean = false
+    var name: String? = null
+    var url: String? = null
+    var imageUrl: String? = null
+    var facebookPageUrl: String? = null
 
-    constructor(artistData: ArtistData){
+    var isFavourite: Boolean = false
+
+    init {
         this.artistId = artistData.id
         this.url = artistData.url
         this.imageUrl = artistData.imageUrl
         this.name = artistData.name
         this.facebookPageUrl = artistData.facebookPageUrl
     }
-
 
 }

@@ -3,7 +3,7 @@ package enekes.abel.musicevents.model
 import com.orm.SugarRecord
 import enekes.abel.musicevents.network.model.EventData
 
-class Event: SugarRecord<Event> {
+class Event: SugarRecord {
 
     private var eventId: String? = null
     private var artistId: String? = null
