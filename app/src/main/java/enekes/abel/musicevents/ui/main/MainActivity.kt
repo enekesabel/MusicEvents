@@ -10,6 +10,7 @@ import enekes.abel.musicevents.R
 import enekes.abel.musicevents.databinding.ActivityMainBinding
 import javax.inject.Inject
 import com.miguelcatalan.materialsearchview.MaterialSearchView
+import com.miguelcatalan.materialsearchview.SearchAdapter
 import enekes.abel.musicevents.R.id.search_view
 import enekes.abel.musicevents.network.model.artist_search.ArtistSearchEntry
 import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsActivity
@@ -23,17 +24,17 @@ class MainActivity : AppCompatActivity(), MainScreen {
 
     private lateinit var searchView: MaterialSearchView
     private lateinit var binding: ActivityMainBinding
+    private lateinit var searchAdapter: SearchAdapter
 
     companion object {
         val ARTIST_KEY = "ARTIST_KEY"
-        var firstSuggestion = ""
     }
 
     private fun initializeSearchView() {
         searchView = search_view as MaterialSearchView
         searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                showArtist(firstSuggestion)
+                showArtist(searchAdapter.getItem(0) as String)
                 return false
             }
 
@@ -45,10 +46,13 @@ class MainActivity : AppCompatActivity(), MainScreen {
     }
 
     private fun setSearchViewSuggestions(suggestions: Array<String>) {
-        firstSuggestion = suggestions[0]
-        searchView.setSuggestions(suggestions)
+        // searchView.setSuggestions(suggestions)
+
+        searchAdapter = SearchAdapter(this, suggestions)
+        searchView.setAdapter(searchAdapter)
         searchView.setOnItemClickListener({ parent, view, position, id ->
-            showArtist(suggestions[position])
+            val item = parent.adapter.getItem(position)
+            showArtist(item as String)
         })
     }
 
@@ -87,6 +91,7 @@ class MainActivity : AppCompatActivity(), MainScreen {
     }
 
     override fun showArtist(artistName: String) {
+        searchView.closeSearch()
         val intent = Intent(this, ArtistDetailsActivity::class.java)
         intent.putExtra(ARTIST_KEY, artistName)
         startActivity(intent)
