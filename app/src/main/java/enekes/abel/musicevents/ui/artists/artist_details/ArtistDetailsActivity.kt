@@ -3,6 +3,7 @@ package enekes.abel.musicevents.ui.artists.artist_details
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import com.squareup.picasso.Picasso
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.R
 import enekes.abel.musicevents.databinding.ActivityArtistDetailsBinding
@@ -10,6 +11,7 @@ import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.ui.main.MainActivity
 
 import kotlinx.android.synthetic.main.activity_artist_details.*
+import kotlinx.android.synthetic.main.content_artist_details.*
 import javax.inject.Inject
 
 class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
@@ -18,6 +20,14 @@ class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
     lateinit var artistDetailsPresenter: ArtistDetailsPresenter
 
     private lateinit var binding: ActivityArtistDetailsBinding
+
+    private fun loadArtistImage(artist: Artist) {
+        artist.imageFile?.let {
+            Picasso.get().load(it).into(artistImage)
+        } ?: run {
+            Picasso.get().load(artist.imageUrl).into(artistImage)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +52,7 @@ class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
 
     override fun showArtist(artist: Artist) {
         binding.artist = artist
+        loadArtistImage(artist)
     }
 
 

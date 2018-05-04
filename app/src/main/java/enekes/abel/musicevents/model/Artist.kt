@@ -11,6 +11,7 @@ class Artist(artistData: ArtistData) : SugarRecord() {
     var name: String? = null
     var url: String? = null
     var imageUrl: String? = null
+    var imageFile: String? = null
     var facebookPageUrl: String? = null
 
     var isFavourite: Boolean = false

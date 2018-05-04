@@ -5,17 +5,15 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
-import android.widget.AdapterView
-import android.widget.ListAdapter
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.R
 import enekes.abel.musicevents.databinding.ActivityMainBinding
 import javax.inject.Inject
-
-import kotlinx.android.synthetic.main.activity_main.*
 import com.miguelcatalan.materialsearchview.MaterialSearchView
+import enekes.abel.musicevents.R.id.search_view
 import enekes.abel.musicevents.network.model.artist_search.ArtistSearchEntry
 import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsActivity
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), MainScreen {
