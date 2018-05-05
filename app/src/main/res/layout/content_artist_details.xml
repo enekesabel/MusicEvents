@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="presenter"
+            type="enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsPresenter" />
+        <variable
             name="artist"
             type="enekes.abel.musicevents.model.Artist" />
         <variable
@@ -56,11 +59,10 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="right"
+            android:onClick="@{()-> presenter.saveArtist(artist)}"
             app:layout_constraintTop_toBottomOf="@id/artistImage"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/ic_toggle_bg"
-            tools:layout_editor_absoluteX="336dp"
-            tools:layout_editor_absoluteY="231dp" />
+            android:background="@drawable/ic_toggle_bg"/>
 
         <TextView
             android:id="@+id/artistFacebookLink"

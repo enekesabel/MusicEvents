@@ -52,7 +52,6 @@ class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
         artistDetailsPresenter.detachScreen()
     }
 
-
     override fun showArtist(artist: Artist) {
         binding.artist = artist
         loadArtistImage(artist)
@@ -61,6 +60,5 @@ class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
     override fun showArtistEvents(events: List<Event>) {
         binding.eventsAdapter = EventRecyclerViewAdapter(events)
     }
-
 
 }

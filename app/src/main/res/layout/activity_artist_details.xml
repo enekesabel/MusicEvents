@@ -43,6 +43,7 @@
         <include
             layout="@layout/content_artist_details"
             app:artist="@{artist}"
+            app:presenter="@{presenter}"
             app:eventsAdapter="@{eventsAdapter}"
             app:layoutManager="@{layoutManager}"/>
 

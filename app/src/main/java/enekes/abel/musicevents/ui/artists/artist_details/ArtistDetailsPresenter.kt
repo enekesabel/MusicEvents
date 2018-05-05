@@ -2,6 +2,7 @@ package enekes.abel.musicevents.ui.artists.artist_details
 
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.interactor.artist.ArtistsInteractor
+import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.ui.Presenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -32,6 +33,10 @@ class ArtistDetailsPresenter : Presenter<ArtistDetailsScreen>() {
                 }, { error ->
                     error.printStackTrace()
                 })
+    }
+
+    fun saveArtist(artist:Artist){
+        System.out.println(artist.name)
     }
 
 }
