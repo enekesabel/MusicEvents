@@ -18,10 +18,17 @@ class ArtistDetailsPresenter : Presenter<ArtistDetailsScreen>() {
     }
 
     fun getArtist(artistName: String) {
-        artistsInteractor.getArtist(artistName) .observeOn(AndroidSchedulers.mainThread())
+        artistsInteractor.getArtist(artistName).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ result ->
                     screen!!.showArtist(result)
+                    artistsInteractor.getArtistEvents(result).observeOn(AndroidSchedulers.mainThread())
+                            .subscribeOn(Schedulers.io())
+                            .subscribe({ events ->
+                                screen!!.showArtistEvents(events)
+                            }, { error ->
+                                error.printStackTrace()
+                            })
                 }, { error ->
                     error.printStackTrace()
                 })

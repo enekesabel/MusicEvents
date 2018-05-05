@@ -3,11 +3,11 @@ package enekes.abel.musicevents.interactor.artist
 import com.orm.SugarRecord
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.model.Artist
+import enekes.abel.musicevents.model.Event
 import enekes.abel.musicevents.network.NetworkConfig
 import enekes.abel.musicevents.network.api.ArtistEventsApi
 import enekes.abel.musicevents.network.api.ArtistInformationApi
 import enekes.abel.musicevents.network.api.ArtistSearchApi
-import enekes.abel.musicevents.network.model.ArtistData
 import enekes.abel.musicevents.network.model.EventData
 import enekes.abel.musicevents.network.model.artist_search.ArtistSearchEntry
 import io.reactivex.Observable
@@ -77,26 +77,44 @@ class ArtistsInteractor {
         }
     }
 
-    fun markFavourite(artist: Artist){
+    fun markFavourite(artist: Artist) {
         artist.isFavourite = true
         SugarRecord.save(artist)
     }
 
-    fun unmarkFavourite(artist: Artist){
+    fun unmarkFavourite(artist: Artist) {
         artist.isFavourite = false
         SugarRecord.save(artist)
     }
 
-    fun getArtistEvents(artistName: String): Observable<List<EventData>> {
+    fun getArtistEvents(artist: Artist): Observable<List<Event>> {
         return Observable.create { subscriber ->
 
-            val date = SimpleDateFormat("yyyy-MM-dd").format(Date())
+            val dateFrom = SimpleDateFormat("yyyy-MM-dd").format(Date())
 
-            val response = this.artistEventsApi.artistEvents(artistName, NetworkConfig.APP_KEY, date).execute()
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.YEAR, 1)
+            val dateTo = SimpleDateFormat("yyyy-MM-dd").format(calendar.time)
+
+            var storedEvents: List<Event> = listOf()
+            artist.id?.let {
+                storedEvents = SugarRecord.find(Event::class.java, "artist = ?", artist.id.toString())
+            }
+            val response = this.artistEventsApi.artistEvents(artist.name, NetworkConfig.APP_KEY, "$dateFrom,$dateTo").execute()
 
             if (response.isSuccessful) {
-                val eventData = response.body()
-                subscriber.onNext(eventData!!)
+                val eventList = response.body()
+                val events: MutableList<Event> = mutableListOf()
+                eventList?.forEach { eventData: EventData ->
+                    val oldEvent = storedEvents.find { storedEvent -> storedEvent.eventId == eventData.id }
+                    var event: Event? = oldEvent
+                    if (event == null) {
+                        event = Event(eventData)
+                    }
+
+                    events.add(event)
+                }
+                subscriber.onNext(events)
                 subscriber.onComplete()
             } else {
                 subscriber.onError(Throwable(response.message()))

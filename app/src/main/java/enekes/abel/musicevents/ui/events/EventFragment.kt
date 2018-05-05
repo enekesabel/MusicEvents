@@ -38,16 +38,6 @@ class EventFragment : Fragment(), EventsScreen {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_event_list, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = MyEventRecyclerViewAdapter(DummyContent.ITEMS, listener)
-            }
-        }
         return view
     }
 
