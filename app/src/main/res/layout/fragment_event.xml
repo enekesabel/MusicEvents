@@ -35,8 +35,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="right"
-                android:layout_marginEnd="16dp"
-                android:background="@drawable/ic_toggle_bg" />
+                android:background="@drawable/ic_toggle_bg"
+                android:checked="@={obj.favourite}" />
         </RelativeLayout>
 
         <TextView

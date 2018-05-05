@@ -35,17 +35,32 @@
 
         <TextView
             android:id="@+id/artistName"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:text="@{artist.name}"
             android:textAppearance="@android:style/TextAppearance.Material.Large"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/artistToggleButton"
             app:layout_constraintTop_toBottomOf="@+id/artistImage" />
+
+        <ToggleButton
+            android:id="@+id/artistToggleButton"
+            style="@style/toggleButton"
+            android:checked="@={artist.favourite}"
+            android:layout_width="@dimen/star_toggle_size"
+            android:layout_height="@dimen/star_toggle_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="right"
+            app:layout_constraintTop_toBottomOf="@id/artistImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/ic_toggle_bg"
+            tools:layout_editor_absoluteX="336dp"
+            tools:layout_editor_absoluteY="231dp" />
 
         <TextView
             android:id="@+id/artistFacebookLink"
