@@ -6,7 +6,11 @@ import com.android.databinding.library.baseAdapters.BR
 
 class BoundViewHolder(private val binding: android.databinding.ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
+    lateinit var boundObject: Any
+        private set
+
     fun bind(obj: Any) {
+        boundObject = obj
         binding.setVariable(BR.obj, obj)
         binding.executePendingBindings()
     }

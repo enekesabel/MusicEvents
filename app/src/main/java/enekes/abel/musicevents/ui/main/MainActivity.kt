@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity(), MainScreen {
     }
 
     override fun showFavouriteArtists(artists: List<Artist>) {
-        binding.artistsAdapter = ArtistRecyclerViewAdapter(artists)
+        binding.artistsAdapter = ArtistRecyclerViewAdapter(artists, applicationContext)
     }
 
 }

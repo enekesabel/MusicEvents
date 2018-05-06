@@ -39,6 +39,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="right"
+            android:onClick="@{()-> obj.update()}"
             android:background="@drawable/ic_toggle_bg"
             android:checked="@={obj.favourite}"
             app:layout_constraintEnd_toEndOf="parent"
