@@ -7,6 +7,9 @@ class MusicEventsApplication : SugarApp() {
     companion object {
         @JvmStatic
         lateinit var injector: MusicEventsApplicationComponent
+
+        @JvmStatic
+        val IMAGE_DIR: String = "imageDir"
     }
 
     override fun onCreate() {
