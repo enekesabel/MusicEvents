@@ -35,6 +35,7 @@ class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
             // if not downloaded yet, download & save
             imageManager.downloadAndSave(artist.imageUrl!!, imageName)
             imageManager.loadImageFromUrl(artist.imageUrl!!,artistImage)
+            artist.imageFile = imageName
             artist.save()
         }
     }

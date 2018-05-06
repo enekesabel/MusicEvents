@@ -62,8 +62,12 @@ class ArtistsInteractor {
 
             if (response.isSuccessful) {
                 val artistData = response.body()
+                var artist: Artist? = null
+                val artistsWithName = SugarRecord.find(Artist::class.java, "artist_id = ?", artistData?.id.toString())
+                if (artistsWithName.size > 0) {
+                    artist = artistsWithName[0]
+                }
 
-                var artist: Artist? = SugarRecord.find(Artist::class.java, "artist_id = ?", artistData?.id.toString())[0]
                 if (artist == null) {
                     artist = Artist(artistData!!)
                 }
