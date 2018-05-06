@@ -32,4 +32,13 @@ class MainPresenter : Presenter<MainScreen>() {
                     })
         }
     }
+
+    fun getFavouriteArtists() {
+        artistInteractor.getFavouriteArtists().observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({ artists ->
+                    screen!!.showFavouriteArtists(artists)
+                })
+    }
+
 }

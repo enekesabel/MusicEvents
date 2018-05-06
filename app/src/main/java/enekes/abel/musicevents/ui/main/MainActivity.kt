@@ -12,13 +12,14 @@ import javax.inject.Inject
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.miguelcatalan.materialsearchview.SearchAdapter
 import enekes.abel.musicevents.R.id.search_view
+import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.network.model.artist_search.ArtistSearchEntry
+import enekes.abel.musicevents.ui.artists.ArtistRecyclerViewAdapter
 import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(), MainScreen {
-
     @Inject
     lateinit var mainPresenter: MainPresenter
 
@@ -78,6 +79,7 @@ class MainActivity : AppCompatActivity(), MainScreen {
     override fun onStart() {
         super.onStart()
         mainPresenter.attachScreen(this)
+        mainPresenter.getFavouriteArtists()
     }
 
     override fun onStop() {
@@ -100,6 +102,10 @@ class MainActivity : AppCompatActivity(), MainScreen {
     override fun showArtistResults(artists: List<ArtistSearchEntry>) {
         val artistNames: Array<String> = artists.map { artist -> artist.name }.toTypedArray()
         setSearchViewSuggestions(artistNames)
+    }
+
+    override fun showFavouriteArtists(artists: List<Artist>) {
+        binding.artistsAdapter = ArtistRecyclerViewAdapter(artists)
     }
 
 }

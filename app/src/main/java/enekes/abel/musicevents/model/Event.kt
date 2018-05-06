@@ -6,7 +6,7 @@ import enekes.abel.musicevents.network.model.EventData
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Event(eventData: EventData) : SugarRecord() {
+class Event(eventData: EventData?) : SugarRecord() {
 
     @Unique
     var eventId: String? = null
@@ -14,7 +14,7 @@ class Event(eventData: EventData) : SugarRecord() {
     private var datetime: Date? = null
     var url: String? = null
     var description: String? = null
-    var isFavourite: Boolean = false
+    var favourite: Boolean = false
     var artist: Artist? = null
     var locationName: String? = null
     var city: String? = null
@@ -24,14 +24,18 @@ class Event(eventData: EventData) : SugarRecord() {
         }
 
     init {
-        val sourceDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-        this.eventId = eventData.id
-        this.artistId = eventData.artistId
-        this.url = eventData.url
-        this.datetime = sourceDateFormat.parse(eventData.datetime)
-        this.description = eventData.description
-        this.locationName = eventData.venue.name
-        this.city = eventData.venue.city
+        if (eventData != null) {
+            val sourceDateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+            this.eventId = eventData.id
+            this.artistId = eventData.artistId
+            this.url = eventData.url
+            this.datetime = sourceDateFormat.parse(eventData.datetime)
+            this.description = eventData.description
+            this.locationName = eventData.venue.name
+            this.city = eventData.venue.city
+        }
     }
+
+    constructor() : this(null)
 
 }

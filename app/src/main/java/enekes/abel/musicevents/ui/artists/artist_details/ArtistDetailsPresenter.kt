@@ -35,8 +35,8 @@ class ArtistDetailsPresenter : Presenter<ArtistDetailsScreen>() {
                 })
     }
 
-    fun saveArtist(artist:Artist){
-        System.out.println(artist.name)
+    fun favouriteClicked(artist:Artist){
+       artistsInteractor.saveArtist(artist)
     }
 
 }

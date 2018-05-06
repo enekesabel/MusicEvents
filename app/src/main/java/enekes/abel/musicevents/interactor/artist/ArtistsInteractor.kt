@@ -64,9 +64,9 @@ class ArtistsInteractor {
                 val artistData = response.body()
 
                 var artist: Artist? = SugarRecord.findById(Artist::class.java, artistData?.id)
-                val isAlreadyFavourite = artist?.isFavourite ?: false
+                val isAlreadyFavourite = artist?.favourite ?: false
                 artist = Artist(artistData!!)
-                artist.isFavourite = isAlreadyFavourite
+                artist.favourite = isAlreadyFavourite
 
                 subscriber.onNext(artist)
                 subscriber.onComplete()
@@ -77,14 +77,15 @@ class ArtistsInteractor {
         }
     }
 
-    fun markFavourite(artist: Artist) {
-        artist.isFavourite = true
+    fun saveArtist(artist: Artist) {
         SugarRecord.save(artist)
     }
 
-    fun unmarkFavourite(artist: Artist) {
-        artist.isFavourite = false
-        SugarRecord.save(artist)
+    fun getFavouriteArtists(): Observable<List<Artist>> {
+        return Observable.create { subscriber ->
+            val favouriteArtists = SugarRecord.find(Artist::class.java, "favourite = ?", "1")
+            subscriber.onNext(favouriteArtists)
+        }
     }
 
     fun getArtistEvents(artist: Artist): Observable<List<Event>> {

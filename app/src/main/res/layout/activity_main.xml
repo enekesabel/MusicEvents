@@ -6,6 +6,9 @@
         <variable
             name="presenter"
             type="enekes.abel.musicevents.ui.main.MainPresenter" />
+        <variable
+            name="artistsAdapter"
+            type="enekes.abel.musicevents.ui.artists.ArtistRecyclerViewAdapter"/>
     </data>
 
     <LinearLayout
@@ -33,7 +36,8 @@
                 android:layout_height="wrap_content" />
         </FrameLayout>
 
-        <include layout="@layout/content_main" />
+        <include layout="@layout/content_main"
+            app:artistsAdapter="@{artistsAdapter}"/>
 
     </LinearLayout>
 </layout>

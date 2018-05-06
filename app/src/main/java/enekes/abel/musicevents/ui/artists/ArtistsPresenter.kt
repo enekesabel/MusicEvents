@@ -2,8 +2,9 @@ package enekes.abel.musicevents.ui.artists
 
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.interactor.artist.ArtistsInteractor
-import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.ui.Presenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ArtistsPresenter : Presenter<ArtistsScreen>() {
@@ -16,15 +17,12 @@ class ArtistsPresenter : Presenter<ArtistsScreen>() {
         MusicEventsApplication.injector.inject(this)
     }
 
-    override fun detachScreen() {
-        super.detachScreen()
-    }
-
-    fun getArtist(artistName: String) {
-        val observable = this.artistsInteractor.getArtist(artistName)
-        observable.subscribe({ artist: Artist? ->
-            System.out.println(artist.toString())
-        })
+    fun getArtists() {
+        artistsInteractor.getFavouriteArtists().observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({ artists ->
+                    screen!!.showFavouriteArtists(artists)
+                })
     }
 
 }

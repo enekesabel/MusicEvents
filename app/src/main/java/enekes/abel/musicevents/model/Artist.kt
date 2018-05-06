@@ -4,7 +4,7 @@ import com.orm.SugarRecord
 import com.orm.dsl.Unique
 import enekes.abel.musicevents.network.model.ArtistData
 
-class Artist(artistData: ArtistData) : SugarRecord() {
+class Artist(artistData: ArtistData?) : SugarRecord() {
 
     @Unique
     private var artistId: Int? = null
@@ -14,14 +14,17 @@ class Artist(artistData: ArtistData) : SugarRecord() {
     var imageFile: String? = null
     var facebookPageUrl: String? = null
 
-    var isFavourite: Boolean = false
+    var favourite: Boolean = false
 
     init {
-        this.artistId = artistData.id
-        this.url = artistData.url
-        this.imageUrl = artistData.imageUrl
-        this.name = artistData.name
-        this.facebookPageUrl = artistData.facebookPageUrl
+        if (artistData != null) {
+            this.artistId = artistData.id
+            this.url = artistData.url
+            this.imageUrl = artistData.imageUrl
+            this.name = artistData.name
+            this.facebookPageUrl = artistData.facebookPageUrl
+        }
     }
 
+    constructor() : this(null)
 }

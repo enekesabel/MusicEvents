@@ -1,8 +1,7 @@
 package enekes.abel.musicevents.ui.artists
 
-/**
- * Created by mobsoft on 2018. 03. 23..
- */
+import enekes.abel.musicevents.model.Artist
+
 interface ArtistsScreen {
-    fun showArtists()
+    fun showFavouriteArtists(artists: List<Artist>)
 }
