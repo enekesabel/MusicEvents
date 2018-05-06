@@ -7,7 +7,7 @@ import enekes.abel.musicevents.network.model.ArtistData
 class Artist(artistData: ArtistData?) : SugarRecord() {
 
     @Unique
-    private var artistId: Int? = null
+    var artistId: Int? = null
     var name: String? = null
     var url: String? = null
     var imageUrl: String? = null
