@@ -15,10 +15,11 @@ import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.network.model.artist_search.ArtistSearchEntry
 import enekes.abel.musicevents.ui.artists.ArtistRecyclerViewAdapter
 import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsActivity
+import enekes.abel.musicevents.ui.utils.OnBoundItemClickListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), MainScreen {
+class MainActivity : AppCompatActivity(), MainScreen, OnBoundItemClickListener {
     @Inject
     lateinit var mainPresenter: MainPresenter
 
@@ -103,8 +104,13 @@ class MainActivity : AppCompatActivity(), MainScreen {
         setSearchViewSuggestions(artistNames)
     }
 
+    override fun onItemClick(item: Any) {
+        val artist = item as Artist
+        showArtist(artist.name!!)
+    }
+
     override fun showFavouriteArtists(artists: List<Artist>) {
-        binding.artistsAdapter = ArtistRecyclerViewAdapter(artists, applicationContext)
+        binding.artistsAdapter = ArtistRecyclerViewAdapter(artists, applicationContext, this)
     }
 
 }

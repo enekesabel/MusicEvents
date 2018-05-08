@@ -5,7 +5,7 @@
     <data>
         <variable
             name="artistsAdapter"
-            type="enekes.abel.musicevents.ui.artists.ArtistRecyclerViewAdapter"></variable>
+            type="enekes.abel.musicevents.ui.artists.ArtistRecyclerViewAdapter" />
     </data>
 
     <android.support.v7.widget.RecyclerView xmlns:app="http://schemas.android.com/apk/res-auto"

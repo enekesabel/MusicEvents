@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.support.v7.widget.RecyclerView
 
 
-abstract class BoundBaseAdapter : RecyclerView.Adapter<BoundViewHolder>() {
+abstract class BoundBaseAdapter(private val clickListener: OnBoundItemClickListener? = null) : RecyclerView.Adapter<BoundViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup,
                                     viewType: Int): BoundViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -19,7 +19,7 @@ abstract class BoundBaseAdapter : RecyclerView.Adapter<BoundViewHolder>() {
     override fun onBindViewHolder(holder: BoundViewHolder,
                                   position: Int) {
         val obj = getObjForPosition(position)
-        holder.bind(obj)
+        holder.bind(obj, clickListener)
     }
 
     override fun getItemViewType(position: Int): Int {

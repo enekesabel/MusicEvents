@@ -9,9 +9,12 @@ class BoundViewHolder(private val binding: android.databinding.ViewDataBinding) 
     lateinit var boundObject: Any
         private set
 
-    fun bind(obj: Any) {
+    fun bind(obj: Any, clickListener: OnBoundItemClickListener? = null) {
         boundObject = obj
         binding.setVariable(BR.obj, obj)
+        if (clickListener != null) {
+            binding.setVariable(BR.clickListener, clickListener)
+        }
         binding.executePendingBindings()
     }
 }
