@@ -6,6 +6,9 @@
         <variable
             name="obj"
             type="enekes.abel.musicevents.model.Artist" />
+        <variable
+            name="clickListener"
+            type="enekes.abel.musicevents.ui.utils.OnBoundItemClickListener" />
     </data>
 
     <android.support.constraint.ConstraintLayout

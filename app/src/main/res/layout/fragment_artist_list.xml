@@ -18,6 +18,5 @@
         android:layout_marginRight="16dp"
         android:adapter="@{artistsAdapter}"
         app:layoutManager="LinearLayoutManager"
-        tools:context=".ui.artists.ArtistFragment"
         tools:listitem="@layout/fragment_artist" />
 </layout>

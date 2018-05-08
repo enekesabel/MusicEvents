@@ -11,7 +11,6 @@ import enekes.abel.musicevents.databinding.ActivityMainBinding
 import javax.inject.Inject
 import com.miguelcatalan.materialsearchview.MaterialSearchView
 import com.miguelcatalan.materialsearchview.SearchAdapter
-import enekes.abel.musicevents.R.id.search_view
 import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.network.model.artist_search.ArtistSearchEntry
 import enekes.abel.musicevents.ui.artists.ArtistRecyclerViewAdapter

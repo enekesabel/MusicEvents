@@ -5,11 +5,9 @@ import enekes.abel.musicevents.interactor.InteractorModule
 import enekes.abel.musicevents.interactor.artist.ArtistsInteractor
 import enekes.abel.musicevents.network.NetworkModule
 import enekes.abel.musicevents.ui.UIModule
-import enekes.abel.musicevents.ui.artists.ArtistFragment
 import enekes.abel.musicevents.ui.artists.ArtistsPresenter
 import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsActivity
 import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsPresenter
-import enekes.abel.musicevents.ui.events.EventFragment
 import enekes.abel.musicevents.ui.events.EventPresenter
 import enekes.abel.musicevents.ui.main.MainActivity
 import enekes.abel.musicevents.ui.main.MainPresenter
@@ -25,5 +23,4 @@ interface MusicEventsApplicationComponent {
     fun inject(eventPresenter: EventPresenter)
     fun inject(artistDetailsPresenter: ArtistDetailsPresenter)
     fun inject(artistsInteractor: ArtistsInteractor)
-    fun inject(artistFragment: ArtistFragment)
 }
