@@ -5,18 +5,30 @@ import android.view.LayoutInflater
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.databinding.FragmentEventListBinding
 import enekes.abel.musicevents.model.Event
+import enekes.abel.musicevents.ui.artists.ArtistListScreen
 import enekes.abel.musicevents.ui.utils.AbstractBoundFragment
+import enekes.abel.musicevents.ui.utils.OnBoundItemClickListener
 import javax.inject.Inject
 
 
-class EventListFragment : AbstractBoundFragment<EventListScreen, FragmentEventListBinding>(), EventListScreen {
+class EventListFragment : AbstractBoundFragment<EventListScreen,
+        FragmentEventListBinding>(),
+        EventListScreen,
+        OnBoundItemClickListener {
 
     @Inject
     override lateinit var presenter: EventPresenter
+    private lateinit var artistDetailsOpener: ArtistListScreen
 
     override fun onStart() {
         super.onStart()
+        artistDetailsOpener = activity as ArtistListScreen
         presenter.getEvents()
+    }
+
+    override fun onItemClick(item: Any) {
+        val event = item as Event
+        artistDetailsOpener.showArtist(event.artist?.name!!)
     }
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentEventListBinding {
@@ -28,6 +40,6 @@ class EventListFragment : AbstractBoundFragment<EventListScreen, FragmentEventLi
     }
 
     override fun showEventList(events: List<Event>) {
-        binding.eventsAdapter = EventRecyclerViewAdapter(events, activity)
+        binding.eventsAdapter = EventRecyclerViewAdapter(events, activity, this)
     }
 }

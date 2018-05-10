@@ -7,13 +7,15 @@ import enekes.abel.musicevents.R
 import enekes.abel.musicevents.model.Event
 import enekes.abel.musicevents.ui.utils.BoundViewHolder
 import enekes.abel.musicevents.ui.utils.ImageManager
+import enekes.abel.musicevents.ui.utils.OnBoundItemClickListener
 import enekes.abel.musicevents.ui.utils.SingleLayoutAdapter
 
 
 class EventRecyclerViewAdapter(
         private val mValues: List<Event>,
-        context: Context)
-    : SingleLayoutAdapter(R.layout.event_item) {
+        context: Context,
+        onBoundItemClickListener: OnBoundItemClickListener? = null)
+    : SingleLayoutAdapter(R.layout.event_item, onBoundItemClickListener) {
 
     private val imageManager: ImageManager = ImageManager(context, MusicEventsApplication.IMAGE_DIR)
 

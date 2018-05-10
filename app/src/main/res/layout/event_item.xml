@@ -7,6 +7,9 @@
         <variable
             name="obj"
             type="enekes.abel.musicevents.model.Event" />
+        <variable
+            name="clickListener"
+            type="enekes.abel.musicevents.ui.utils.OnBoundItemClickListener" />
     </data>
 
     <LinearLayout
@@ -15,6 +18,7 @@
         android:orientation="vertical">
 
         <android.support.constraint.ConstraintLayout
+            android:onClick="@{() -> clickListener.onItemClick(obj)}"
             android:layout_width="match_parent"
             android:layout_height="96dp"
             android:layout_marginTop="16dp">
