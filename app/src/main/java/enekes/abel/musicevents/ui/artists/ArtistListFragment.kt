@@ -26,6 +26,7 @@ class ArtistListFragment : AbstractBoundFragment<ArtistListScreen, FragmentArtis
 
     override fun onStart() {
         super.onStart()
+        artistDetailsOpener = activity as ArtistListScreen
         presenter.getArtists()
     }
 
