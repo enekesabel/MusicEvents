@@ -1,6 +1,6 @@
 package enekes.abel.musicevents.ui
 
-abstract class Presenter<S> {
+open class Presenter<S> {
     protected var screen: S? = null
 
     open fun attachScreen(screen: S) {

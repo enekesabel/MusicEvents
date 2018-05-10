@@ -41,12 +41,18 @@ class ArtistsInteractor {
         MusicEventsApplication.injector.inject(this)
     }
 
-    fun searchArtist(artistName: String): Observable<List<ArtistSearchEntry>> {
+    fun searchArtist(artistName: String): Observable<List<Artist>> {
         return Observable.create { subscriber ->
             val response = this.artistSearchApi.searchArtist(method, artistName, limit, apiKey, format).execute()
 
             if (response.isSuccessful) {
-                val artistList = response.body()!!.results.artistmatches.artist
+                val artistSearchEntryList = response.body()!!.results.artistmatches.artist
+                val artistList: MutableList<Artist> = arrayListOf()
+
+                artistSearchEntryList.forEach { artistSearchEntry: ArtistSearchEntry ->
+                    artistList.add(Artist(artistSearchEntry))
+                }
+
                 subscriber.onNext(artistList)
                 subscriber.onComplete()
             } else {

@@ -7,12 +7,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ArtistsPresenter : Presenter<ArtistsScreen>() {
+class ArtistsPresenter : Presenter<ArtistListScreen>() {
 
     @Inject
     lateinit var artistsInteractor: ArtistsInteractor
 
-    override fun attachScreen(screen: ArtistsScreen) {
+    override fun attachScreen(screen: ArtistListScreen) {
         super.attachScreen(screen)
         MusicEventsApplication.injector.inject(this)
     }
@@ -21,7 +21,7 @@ class ArtistsPresenter : Presenter<ArtistsScreen>() {
         artistsInteractor.getFavouriteArtists().observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ artists ->
-                    screen!!.showFavouriteArtists(artists)
+                    screen!!.showArtistList(artists)
                 })
     }
 

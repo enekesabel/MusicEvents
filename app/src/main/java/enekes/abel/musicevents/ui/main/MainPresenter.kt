@@ -2,14 +2,12 @@ package enekes.abel.musicevents.ui.main
 
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.interactor.artist.ArtistsInteractor
+import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.ui.Presenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-/**
- * Created by mobsoft on 2018. 03. 23..
- */
 class MainPresenter : Presenter<MainScreen>() {
 
     @Inject
@@ -26,7 +24,7 @@ class MainPresenter : Presenter<MainScreen>() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe({ result ->
-                        screen!!.showArtistResults(result)
+                        screen!!.showArtistList(result)
                     }, { error ->
                         error.printStackTrace()
                     })
@@ -37,7 +35,7 @@ class MainPresenter : Presenter<MainScreen>() {
         artistInteractor.getFavouriteArtists().observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ artists ->
-                    screen!!.showFavouriteArtists(artists)
+                    screen!!.showArtistList(artists)
                 })
     }
 

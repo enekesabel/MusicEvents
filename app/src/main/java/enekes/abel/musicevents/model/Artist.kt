@@ -3,6 +3,7 @@ package enekes.abel.musicevents.model
 import com.orm.SugarRecord
 import com.orm.dsl.Unique
 import enekes.abel.musicevents.network.model.ArtistData
+import enekes.abel.musicevents.network.model.artist_search.ArtistSearchEntry
 
 class Artist(artistData: ArtistData?) : SugarRecord() {
 
@@ -24,6 +25,10 @@ class Artist(artistData: ArtistData?) : SugarRecord() {
             this.name = artistData.name
             this.facebookPageUrl = artistData.facebookPageUrl
         }
+    }
+
+    constructor(artistData: ArtistSearchEntry) : this() {
+        name = artistData.name
     }
 
     constructor() : this(null)
