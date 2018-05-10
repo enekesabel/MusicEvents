@@ -9,6 +9,7 @@ class EventRecyclerViewAdapter(
         private val mValues: List<Event>)
     : SingleLayoutAdapter(R.layout.fragment_event) {
 
+
     override fun getItemCount(): Int = mValues.size
 
     override fun getObjForPosition(position: Int): Any {
