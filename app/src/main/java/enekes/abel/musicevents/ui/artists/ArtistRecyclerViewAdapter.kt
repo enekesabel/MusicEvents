@@ -1,7 +1,6 @@
 package enekes.abel.musicevents.ui.artists
 
 import android.content.Context
-import android.view.ViewGroup
 import android.widget.ImageView
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.R
@@ -15,7 +14,7 @@ class ArtistRecyclerViewAdapter(
         private val mValues: List<Artist>,
         context: Context,
         onBoundItemClickListener: OnBoundItemClickListener? = null)
-    : SingleLayoutAdapter(R.layout.fragment_artist, onBoundItemClickListener) {
+    : SingleLayoutAdapter(R.layout.artist_list_item, onBoundItemClickListener) {
 
     private val imageManager: ImageManager = ImageManager(context, MusicEventsApplication.IMAGE_DIR)
 
