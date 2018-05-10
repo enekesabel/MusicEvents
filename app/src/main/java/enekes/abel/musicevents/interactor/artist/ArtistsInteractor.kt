@@ -123,6 +123,11 @@ class ArtistsInteractor {
                         event = Event(eventData)
                     }
 
+                    // setting artist of event if not set yet
+                    if (event.artist == null) {
+                        event.artist = artist
+                    }
+
                     events.add(event)
                 }
                 subscriber.onNext(events)
