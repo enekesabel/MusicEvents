@@ -28,6 +28,6 @@ class EventListFragment : AbstractBoundFragment<EventListScreen, FragmentEventLi
     }
 
     override fun showEventList(events: List<Event>) {
-        binding.eventsAdapter = ArtistDetailsEventRecyclerViewAdapter(events)
+        binding.eventsAdapter = EventRecyclerViewAdapter(events, activity)
     }
 }

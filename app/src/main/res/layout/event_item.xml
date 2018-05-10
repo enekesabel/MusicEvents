@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="obj"
+            type="enekes.abel.musicevents.model.Event" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/artist_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="h,1:1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/event_artist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{obj.artist.name}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toEndOf="@id/artist_image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ToggleButton
+                android:id="@+id/toggleButton"
+                style="@style/toggleButton"
+                android:layout_width="@dimen/star_toggle_size"
+                android:layout_height="@dimen/star_toggle_size"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="end"
+                android:background="@drawable/ic_toggle_bg"
+                android:checked="@={obj.favourite}"
+                android:onClick="@{()-> obj.update()}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/event_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{obj.locationName}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toEndOf="@id/artist_image"
+                app:layout_constraintTop_toBottomOf="@+id/toggleButton" />
+
+            <TextView
+                android:id="@+id/event_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@{obj.date}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toEndOf="@id/artist_image"
+                app:layout_constraintTop_toBottomOf="@+id/event_location" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/event_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@{obj.description}"
+            android:textAppearance="?attr/textAppearanceListItem"
+            app:layout_constraintTop_toBottomOf="@+id/event_date" />
+    </LinearLayout>
+
+
+</layout>
