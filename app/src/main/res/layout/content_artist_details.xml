@@ -15,7 +15,7 @@
             type="android.support.v7.widget.RecyclerView.LayoutManager" />
         <variable
             name="eventsAdapter"
-            type="enekes.abel.musicevents.ui.events.EventRecyclerViewAdapter" />
+            type="enekes.abel.musicevents.ui.events.ArtistDetailsEventRecyclerViewAdapter" />
     </data>
 
     <android.support.constraint.ConstraintLayout

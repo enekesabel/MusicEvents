@@ -5,7 +5,7 @@ import enekes.abel.musicevents.model.Event
 import enekes.abel.musicevents.ui.utils.SingleLayoutAdapter
 
 
-class EventRecyclerViewAdapter(
+class ArtistDetailsEventRecyclerViewAdapter(
         private val mValues: List<Event>)
     : SingleLayoutAdapter(R.layout.artist_detail_event_item) {
 

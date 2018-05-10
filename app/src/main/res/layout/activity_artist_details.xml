@@ -17,7 +17,7 @@
 
         <variable
             name="eventsAdapter"
-            type="enekes.abel.musicevents.ui.events.EventRecyclerViewAdapter" />
+            type="enekes.abel.musicevents.ui.events.ArtistDetailsEventRecyclerViewAdapter" />
     </data>
 
     <android.support.design.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"

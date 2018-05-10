@@ -9,7 +9,7 @@ import enekes.abel.musicevents.R
 import enekes.abel.musicevents.databinding.ActivityArtistDetailsBinding
 import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.model.Event
-import enekes.abel.musicevents.ui.events.EventRecyclerViewAdapter
+import enekes.abel.musicevents.ui.events.ArtistDetailsEventRecyclerViewAdapter
 import enekes.abel.musicevents.ui.main.MainActivity
 import enekes.abel.musicevents.ui.utils.ImageManager
 
@@ -68,7 +68,7 @@ class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
     }
 
     override fun showArtistEvents(events: List<Event>) {
-        binding.eventsAdapter = EventRecyclerViewAdapter(events)
+        binding.eventsAdapter = ArtistDetailsEventRecyclerViewAdapter(events)
     }
 
 }
