@@ -40,8 +40,14 @@ class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
     override fun onStart() {
         super.onStart()
         artistDetailsPresenter.attachScreen(this)
-        val artistName: String = this.intent.getStringExtra(MainActivity.ARTIST_KEY)
-        artistDetailsPresenter.getArtist(artistName)
+        val artistId: Int = this.intent.getIntExtra(MainActivity.ARTIST_ID, -1)
+
+        if (artistId != -1) {
+            artistDetailsPresenter.getArtistById(artistId)
+        } else {
+            val artistName: String = this.intent.getStringExtra(MainActivity.ARTIST_KEY)
+            artistDetailsPresenter.getArtistByName(artistName)
+        }
     }
 
     override fun onStop() {

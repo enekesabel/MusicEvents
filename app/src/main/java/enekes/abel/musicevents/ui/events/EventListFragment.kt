@@ -6,6 +6,7 @@ import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.databinding.FragmentEventListBinding
 import enekes.abel.musicevents.model.Event
 import enekes.abel.musicevents.ui.artists.ArtistListScreen
+import enekes.abel.musicevents.ui.main.ArtistDetailsOpener
 import enekes.abel.musicevents.ui.utils.AbstractBoundFragment
 import enekes.abel.musicevents.ui.utils.OnBoundItemClickListener
 import javax.inject.Inject
@@ -18,17 +19,17 @@ class EventListFragment : AbstractBoundFragment<EventListScreen,
 
     @Inject
     override lateinit var presenter: EventPresenter
-    private lateinit var artistDetailsOpener: ArtistListScreen
+    private lateinit var artistDetailsOpener: ArtistDetailsOpener
 
     override fun onStart() {
         super.onStart()
-        artistDetailsOpener = activity as ArtistListScreen
+        artistDetailsOpener = activity as ArtistDetailsOpener
         presenter.getEvents()
     }
 
     override fun onItemClick(item: Any) {
         val event = item as Event
-        artistDetailsOpener.showArtist(event.artist?.name!!)
+        artistDetailsOpener.showArtistById(event.artist?.artistId!!)
     }
 
     override fun getBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentEventListBinding {

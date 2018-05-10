@@ -24,7 +24,7 @@ class MainPresenter : Presenter<MainScreen>() {
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe({ result ->
-                        screen!!.showArtistList(result)
+                        screen!!.showArtistResults(result)
                     }, { error ->
                         error.printStackTrace()
                     })
@@ -35,7 +35,7 @@ class MainPresenter : Presenter<MainScreen>() {
         artistInteractor.getFavouriteArtists().observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ artists ->
-                    screen!!.showArtistList(artists)
+                    screen!!.showArtistResults(artists)
                 })
     }
 

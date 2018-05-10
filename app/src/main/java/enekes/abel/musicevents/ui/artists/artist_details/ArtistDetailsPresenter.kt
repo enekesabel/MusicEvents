@@ -18,8 +18,26 @@ class ArtistDetailsPresenter : Presenter<ArtistDetailsScreen>() {
         MusicEventsApplication.injector.inject(this)
     }
 
-    fun getArtist(artistName: String) {
-        artistsInteractor.getArtist(artistName).observeOn(AndroidSchedulers.mainThread())
+    fun getArtistByName(artistName: String) {
+        artistsInteractor.getArtistByName(artistName).observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe({ artist ->
+                    screen!!.showArtist(artist)
+                    artistsInteractor.getArtistEvents(artist).observeOn(AndroidSchedulers.mainThread())
+                            .subscribeOn(Schedulers.io())
+                            .subscribe({ events ->
+                                screen!!.showArtistEvents(events)
+                            }, { error ->
+                                error.printStackTrace()
+                            })
+                }, { error ->
+                    error.printStackTrace()
+                })
+    }
+
+
+    fun getArtistById(artistId: Int) {
+        artistsInteractor.getArtistById(artistId).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe({ result ->
                     screen!!.showArtist(result)

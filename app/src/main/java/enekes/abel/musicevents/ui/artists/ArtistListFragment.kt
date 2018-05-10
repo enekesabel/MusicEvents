@@ -4,6 +4,7 @@ import android.view.ViewGroup
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.databinding.FragmentArtistListBinding
 import enekes.abel.musicevents.model.Artist
+import enekes.abel.musicevents.ui.main.ArtistDetailsOpener
 import enekes.abel.musicevents.ui.utils.AbstractBoundFragment
 import enekes.abel.musicevents.ui.utils.OnBoundItemClickListener
 import javax.inject.Inject
@@ -14,7 +15,7 @@ class ArtistListFragment : AbstractBoundFragment<ArtistListScreen, FragmentArtis
 
     @Inject
     override lateinit var presenter: ArtistsPresenter
-    private lateinit var artistDetailsOpener: ArtistListScreen
+    private lateinit var artistDetailsOpener: ArtistDetailsOpener
 
     override fun injectDependency() {
         MusicEventsApplication.injector.inject(this)
@@ -26,17 +27,20 @@ class ArtistListFragment : AbstractBoundFragment<ArtistListScreen, FragmentArtis
 
     override fun onStart() {
         super.onStart()
-        artistDetailsOpener = activity as ArtistListScreen
+        artistDetailsOpener = activity as ArtistDetailsOpener
         presenter.getArtists()
     }
 
-    override fun showArtist(artistName: String) {
-        this.artistDetailsOpener.showArtist(artistName)
+    override fun showArtistByName(artistName: String) {
+        this.artistDetailsOpener.showArtistByName(artistName)
+    }
+    override fun showArtistById(artistId: Int) {
+        this.artistDetailsOpener.showArtistById(artistId)
     }
 
     override fun onItemClick(item: Any) {
         val artist = item as Artist
-        showArtist(artist.name!!)
+        showArtistById(artist.artistId!!)
     }
 
     override fun showArtistList(artists: List<Artist>) {

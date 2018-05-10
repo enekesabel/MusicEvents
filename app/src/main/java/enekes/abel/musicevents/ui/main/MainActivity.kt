@@ -20,7 +20,7 @@ import enekes.abel.musicevents.ui.utils.Pager
 
 class MainActivity : AppCompatActivity(),
         MainScreen,
-        TabLayout.OnTabSelectedListener{
+        TabLayout.OnTabSelectedListener {
     @Inject
     lateinit var mainPresenter: MainPresenter
 
@@ -30,13 +30,16 @@ class MainActivity : AppCompatActivity(),
 
     companion object {
         val ARTIST_KEY = "ARTIST_KEY"
+        val ARTIST_ID = "ARTIST_ID"
     }
 
     private fun initializeSearchView() {
         searchView = search_view as MaterialSearchView
         searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                showArtist(searchAdapter.getItem(0) as String)
+                if (searchAdapter.count > 0) {
+                    this@MainActivity.showArtistByName(searchAdapter.getItem(0) as String)
+                }
                 return false
             }
 
@@ -54,7 +57,7 @@ class MainActivity : AppCompatActivity(),
         searchView.setAdapter(searchAdapter)
         searchView.setOnItemClickListener({ parent, view, position, id ->
             val item = parent.adapter.getItem(position)
-            showArtist(item as String)
+            this.showArtistByName(item as String)
         })
     }
 
@@ -102,14 +105,22 @@ class MainActivity : AppCompatActivity(),
         mainPresenter.detachScreen()
     }
 
-    override fun showArtist(artistName: String) {
+    override fun showArtistById(artistId: Int) {
+        searchView.closeSearch()
+        val intent = Intent(this, ArtistDetailsActivity::class.java)
+        intent.putExtra(ARTIST_ID, artistId)
+        startActivity(intent)
+    }
+
+
+    override fun showArtistByName(artistName: String) {
         searchView.closeSearch()
         val intent = Intent(this, ArtistDetailsActivity::class.java)
         intent.putExtra(ARTIST_KEY, artistName)
         startActivity(intent)
     }
 
-    override fun showArtistList(artists: List<Artist>) {
+    override fun showArtistResults(artists: List<Artist>) {
         val artistNames: Array<String> = artists.map { artist -> artist.name!! }.toTypedArray()
         setSearchViewSuggestions(artistNames)
     }

@@ -27,9 +27,12 @@ class Artist(artistData: ArtistData?) : SugarRecord() {
         }
     }
 
-    constructor(artistData: ArtistSearchEntry) : this() {
-        name = artistData.name
+    constructor(artistName: String) : this() {
+        name = artistName
     }
+
+    constructor(artistData: ArtistSearchEntry) : this(artistData.name)
+
 
     constructor() : this(null)
 }

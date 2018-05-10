@@ -61,28 +61,57 @@ class ArtistsInteractor {
         }
     }
 
-    fun getArtist(artistName: String): Observable<Artist> {
+    fun getArtistById(artistId: Int): Observable<Artist> {
         return Observable.create { subscriber ->
-
-            val response = this.artistInformationApi.artist(artistName, NetworkConfig.APP_KEY).execute()
-
-            if (response.isSuccessful) {
-                val artistData = response.body()
-                var artist: Artist? = null
-                val artistsWithName = SugarRecord.find(Artist::class.java, "artist_id = ?", artistData?.id.toString())
-                if (artistsWithName.size > 0) {
-                    artist = artistsWithName[0]
-                }
-
-                if (artist == null) {
-                    artist = Artist(artistData!!)
-                }
-
+            var artist: Artist? = null
+            val artists = SugarRecord.find(Artist::class.java, "artist_id = ?", artistId.toString())
+            if (artists.size > 0) {
+                artist = artists[0]
                 subscriber.onNext(artist)
                 subscriber.onComplete()
             } else {
-                subscriber.onError(Throwable(response.message()))
+                subscriber.onError(Error("Artist not found"))
             }
+        }
+    }
+
+    fun getArtistByName(artistName: String): Observable<Artist> {
+        return Observable.create { subscriber ->
+
+            // trying to find locally first
+            var artist: Artist? = null
+            val artistsWithSameName = SugarRecord.find(Artist::class.java, "name = ?", artistName)
+            if (artistsWithSameName.size > 0) {
+                artist = artistsWithSameName[0]
+            }
+
+            // if found locally, return immediately
+            if (artist != null) {
+                subscriber.onNext(artist)
+                subscriber.onComplete()
+            } else {
+                val response = this.artistInformationApi.artist(artistName, NetworkConfig.APP_KEY).execute()
+
+                if (response.isSuccessful) {
+                    val artistData = response.body()
+
+                    val artistWasNotFoundLocally = artist == null
+
+                    // save artist anyway
+                    artist = Artist(artistData!!)
+                    artist.save()
+
+                    // if artist wasn't found locally return fetched artist
+                    if (artistWasNotFoundLocally) {
+                        subscriber.onNext(artist)
+                        subscriber.onComplete()
+                    }
+
+                } else {
+                    subscriber.onError(Throwable(response.message()))
+                }
+            }
+
 
         }
     }
