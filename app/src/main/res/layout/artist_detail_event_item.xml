@@ -2,7 +2,6 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-
         <variable
             name="obj"
             type="enekes.abel.musicevents.model.Event" />
@@ -36,11 +35,12 @@
                 android:layout_alignParentTop="true"
                 android:layout_gravity="right"
                 android:background="@drawable/ic_toggle_bg"
-                android:checked="@={obj.favourite}" />
+                android:checked="@={obj.favourite}"
+                android:onClick="@{()-> obj.update()}" />
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/event_name"
+            android:id="@+id/event_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

@@ -18,5 +18,5 @@
         android:layout_marginRight="16dp"
         android:adapter="@{eventsAdapter}"
         app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/fragment_event" />
+        tools:listitem="@layout/artist_detail_event_item" />
 </layout>
