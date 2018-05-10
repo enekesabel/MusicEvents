@@ -11,8 +11,7 @@ import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.model.Event
 import enekes.abel.musicevents.ui.events.ArtistDetailsEventRecyclerViewAdapter
 import enekes.abel.musicevents.ui.main.MainActivity
-import enekes.abel.musicevents.ui.utils.ImageManager
-
+import enekes.abel.musicevents.ui.utils.ArtistImageLoader
 import kotlinx.android.synthetic.main.activity_artist_details.*
 import kotlinx.android.synthetic.main.content_artist_details.*
 import javax.inject.Inject
@@ -22,22 +21,10 @@ class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
     lateinit var artistDetailsPresenter: ArtistDetailsPresenter
 
     private lateinit var binding: ActivityArtistDetailsBinding
-
-    private lateinit var imageManager: ImageManager
+    private lateinit var artistImageLoader: ArtistImageLoader
 
     private fun loadArtistImage(artist: Artist) {
-        val imageName = artist.artistId.toString() + ".jpeg"
-
-        // load image from storage if already downloaded
-        artist.imageFile?.let {
-           imageManager.loadImageFromFile(imageName,artistImage)
-        } ?: run {
-            // if not downloaded yet, download & save
-            imageManager.downloadAndSave(artist.imageUrl!!, imageName)
-            imageManager.loadImageFromUrl(artist.imageUrl!!,artistImage)
-            artist.imageFile = imageName
-            artist.save()
-        }
+        artistImageLoader.loadImage(artist, artistImage)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +34,7 @@ class ArtistDetailsActivity : AppCompatActivity(), ArtistDetailsScreen {
         setSupportActionBar(toolbar)
         binding.presenter = artistDetailsPresenter
         binding.layoutManager = LinearLayoutManager(this)
-        imageManager = ImageManager(applicationContext, MusicEventsApplication.IMAGE_DIR)
+        artistImageLoader = ArtistImageLoader(this)
     }
 
     override fun onStart() {
