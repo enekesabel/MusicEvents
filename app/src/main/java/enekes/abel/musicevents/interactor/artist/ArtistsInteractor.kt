@@ -90,6 +90,7 @@ class ArtistsInteractor {
                 subscriber.onNext(artist)
                 subscriber.onComplete()
             } else {
+                // todo: update artist is response is successful
                 val response = this.artistInformationApi.artist(artistName, NetworkConfig.APP_KEY).execute()
 
                 if (response.isSuccessful) {

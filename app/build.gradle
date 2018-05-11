@@ -63,19 +63,22 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+    // analytics
+    implementation 'com.google.android.gms:play-services-analytics:10.2.4'
+
     // Kotlin databinding
     kapt "com.android.databinding:compiler:$gradle_version"
 
     // SearchView
     implementation 'com.miguelcatalan:materialsearchview:1.4.0'
 
-    //Sugar orm
+    // Sugar orm
     implementation 'com.github.satyan:sugar:1.5'
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    //RX
+    // RX
     implementation "io.reactivex.rxjava2:rxjava:2.1.8"
     implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
 

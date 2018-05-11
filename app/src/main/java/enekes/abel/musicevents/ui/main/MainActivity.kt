@@ -5,7 +5,9 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
+import com.google.android.gms.analytics.Tracker
 import enekes.abel.musicevents.MusicEventsApplication
 import enekes.abel.musicevents.R
 import enekes.abel.musicevents.databinding.ActivityMainBinding
@@ -16,7 +18,7 @@ import enekes.abel.musicevents.model.Artist
 import enekes.abel.musicevents.ui.artists.artist_details.ArtistDetailsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import enekes.abel.musicevents.ui.utils.Pager
-
+import enekes.abel.musicevents.ui.utils.AnalyticsApplication
 
 class MainActivity : AppCompatActivity(),
         MainScreen,
@@ -31,34 +33,6 @@ class MainActivity : AppCompatActivity(),
     companion object {
         val ARTIST_KEY = "ARTIST_KEY"
         val ARTIST_ID = "ARTIST_ID"
-    }
-
-    private fun initializeSearchView() {
-        searchView = search_view as MaterialSearchView
-        searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                if (searchAdapter.count > 0) {
-                    this@MainActivity.showArtistByName(searchAdapter.getItem(0) as String)
-                }
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                mainPresenter.searchArtist(newText)
-                return false
-            }
-        })
-    }
-
-    private fun setSearchViewSuggestions(suggestions: Array<String>) {
-        // searchView.setSuggestions(suggestions)
-
-        searchAdapter = SearchAdapter(this, suggestions)
-        searchView.setAdapter(searchAdapter)
-        searchView.setOnItemClickListener({ parent, view, position, id ->
-            val item = parent.adapter.getItem(position)
-            this.showArtistByName(item as String)
-        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -104,6 +78,35 @@ class MainActivity : AppCompatActivity(),
         super.onStop()
         mainPresenter.detachScreen()
     }
+
+    private fun initializeSearchView() {
+        searchView = search_view as MaterialSearchView
+        searchView.setOnQueryTextListener(object : MaterialSearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if (searchAdapter.count > 0) {
+                    this@MainActivity.showArtistByName(searchAdapter.getItem(0) as String)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                mainPresenter.searchArtist(newText)
+                return false
+            }
+        })
+    }
+
+    private fun setSearchViewSuggestions(suggestions: Array<String>) {
+        // searchView.setSuggestions(suggestions)
+
+        searchAdapter = SearchAdapter(this, suggestions)
+        searchView.setAdapter(searchAdapter)
+        searchView.setOnItemClickListener({ parent, view, position, id ->
+            val item = parent.adapter.getItem(position)
+            this.showArtistByName(item as String)
+        })
+    }
+
 
     override fun showArtistById(artistId: Int) {
         searchView.closeSearch()
