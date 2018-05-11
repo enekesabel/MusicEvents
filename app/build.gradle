@@ -2,6 +2,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'io.fabric'
 android {
     compileSdkVersion 26
     defaultConfig {
@@ -58,13 +59,15 @@ dependencies {
     implementation "org.apache.oltu.oauth2:org.apache.oltu.oauth2.client:1.0.1"
     implementation "io.gsonfire:gson-fire:$json_fire_version"
     implementation "org.threeten:threetenbp:$threetenbp_version"
+    implementation 'com.google.firebase:firebase-crash:11.8.0'
     compileOnly 'javax.annotation:jsr250-api:1.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.crashlytics.sdk.android:crashlytics:2.9.1'
 
     // analytics
-    implementation 'com.google.android.gms:play-services-analytics:10.2.4'
+    implementation 'com.google.android.gms:play-services-analytics:11.8.0'
 
     // Kotlin databinding
     kapt "com.android.databinding:compiler:$gradle_version"
@@ -105,3 +108,5 @@ dependencies {
     androidTestAnnotationProcessor "com.google.dagger:dagger-compiler:2.11"
     androidTestCompileOnly 'javax.annotation:jsr250-api:1.0'
 }
+
+apply plugin: 'com.google.gms.google-services'
